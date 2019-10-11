@@ -18,6 +18,7 @@ export const userUpdate = updatedUser => (dispatch, getState) => {
   );
 };
 
+// set cookie 
 export const userLogin = user => dispatch => {
   return AsyncStorage.setItem('User', JSON.stringify(user)).then(() => {
     dispatch(setupUser(user));
