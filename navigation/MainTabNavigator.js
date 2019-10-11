@@ -1,78 +1,135 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { tabBarOptions, navigatorOptions } from '../constants/Colors';
 
+import DialogsIconWithBadge from '../components/DialogsIconWithBadge';
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
-});
 
-const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-  },
-  config
-);
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+import ImageViewerScreen from '../screens/ImageViewerScreen';
+
+class ContactsScreen extends Component {
+	render() {
+    return (
+      <View style={styles.container}>
+        <Text>ContactsScreen</Text>
+      </View>
+    );
+  }
+
+class xDialogsScreen extends Component {
+
+	render() {
+      return (
+        <View style={styles.container}>
+          <Text>DialogsScreen</Text>
+        </View>
+      );
+}
+
+class SettingsScreen extends Component {
+	render() {
+
+      return (
+        <View style={styles.container}>
+          <Text>SettingsScreen</Text>
+        </View>
+      );
+}
+
+class ChangeProfileScreen extends Component {
+	render() {
+
+      return (
+        <View style={styles.container}>
+          <Text>ChangeProfileScreen</Text>
+        </View>
+      );
+}
+
+class ChangePasswordScreen extends Component {
+	render() {
+
+      return (
+        <View style={styles.container}>
+          <Text>ChangePasswordScreen</Text>
+        </View>
+    );
+}
+
+const SearchStack = createStackNavigator({ ContactsScreen: ContactsScreen }, navigatorOptions);
+
+SearchStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name={Platform.OS === 'android' ? 'md-contact' : 'ios-contact'}
     />
-  ),
+  )
 };
 
-HomeStack.path = '';
-
-const LinksStack = createStackNavigator(
-  {
-    Links: LinksScreen,
-  },
-  config
-);
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+const DialogsStack = createStackNavigator({ xDialogsScreen: xDialogsScreen }, navigatorOptions);
+DialogsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
+    <DialogsIconWithBadge>
+      <TabBarIcon focused={focused} name={'ios-chatbubbles'} />
+    </DialogsIconWithBadge>
+  )
 };
-
-LinksStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: {
+        headerBackTitle: null
+      }
+    },
+    ChangeProfile: ChangeProfileScreen,
+    ChangePassword: ChangePasswordScreen
   },
-  config
+  navigatorOptions
 );
-
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'android' ? 'md-settings' : 'ios-cog'}
+    />
+  )
 };
 
-SettingsStack.path = '';
+const BottomTabNavigator = createBottomTabNavigator(
+  {
+    SearchStack,
+    DialogsStack,
+    SettingsStack
+  },
+  {
+    tabBarOptions,
+    initialRouteName: 'DialogsStack'
+  }
+);
 
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
-
-tabNavigator.path = '';
-
-export default tabNavigator;
+export default createStackNavigator(
+  {
+    Main: {
+      screen: BottomTabNavigator,
+      navigationOptions: {
+        header: null,
+        headerBackTitle: null
+      }
+    },
+    Conversation: {
+      screen: ConversationScreen,
+      navigationOptions: {
+        headerBackTitle: null
+      }
+    },
+    ImageViewer: ImageViewerScreen
+  },
+  navigatorOptions
+);
