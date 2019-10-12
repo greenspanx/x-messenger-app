@@ -1,67 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { tabBarOptions, navigatorOptions } from '../constants/Colors';
-
 import DialogsIconWithBadge from '../components/DialogsIconWithBadge';
 import TabBarIcon from '../components/TabBarIcon';
-
-
-
+import ContactsScreen from '../screens/ContactsScreen';
+import DialogsScreen from '../screens/DialogsScreen';
+import ConversationScreen from '../screens/ConversationScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import ChangeProfileScreen from '../screens/Settings/ChangeProfileScreen';
+import ChangePasswordScreen from '../screens/Settings/ChangePasswordScreen';
 import ImageViewerScreen from '../screens/ImageViewerScreen';
 
-class ContactsScreen extends Component {
-	render() {
-    return (
-      <View style={styles.container}>
-        <Text>ContactsScreen</Text>
-      </View>
-    );
-  }
-
-class xDialogsScreen extends Component {
-
-	render() {
-      return (
-        <View style={styles.container}>
-          <Text>DialogsScreen</Text>
-        </View>
-      );
-}
-
-class SettingsScreen extends Component {
-	render() {
-
-      return (
-        <View style={styles.container}>
-          <Text>SettingsScreen</Text>
-        </View>
-      );
-}
-
-class ChangeProfileScreen extends Component {
-	render() {
-
-      return (
-        <View style={styles.container}>
-          <Text>ChangeProfileScreen</Text>
-        </View>
-      );
-}
-
-class ChangePasswordScreen extends Component {
-	render() {
-
-      return (
-        <View style={styles.container}>
-          <Text>ChangePasswordScreen</Text>
-        </View>
-    );
-}
-
-const SearchStack = createStackNavigator({ ContactsScreen: ContactsScreen }, navigatorOptions);
-
+const SearchStack = createStackNavigator({ ContactsScreen }, navigatorOptions);
 SearchStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -71,7 +23,7 @@ SearchStack.navigationOptions = {
   )
 };
 
-const DialogsStack = createStackNavigator({ xDialogsScreen: xDialogsScreen }, navigatorOptions);
+const DialogsStack = createStackNavigator({ DialogsScreen }, navigatorOptions);
 DialogsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <DialogsIconWithBadge>

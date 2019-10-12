@@ -8,12 +8,11 @@ import { userLogin } from '../../redux/actions/UserActions';
 import Colors from '../../constants/Colors';
 import { Input, Button } from '../../components/UI';
 import InputUsername from '../../components/InputUsername';
-import PhoneInput from '../../components/PhoneInput';
 import { isValidPhoneNumber } from '../../utils';
 
 @connect(
-  null,
-  { userLogin }
+  null,   // mapStateToProps
+  { userLogin }  // mapActionToProps 
 )
 export default class SignUpScreen extends React.Component {
   static navigationOptions = {
@@ -123,6 +122,7 @@ export default class SignUpScreen extends React.Component {
       loading,
       first_name,
       last_name,
+      phone,
       password,
       password_again,
       errorValidation
@@ -142,7 +142,7 @@ export default class SignUpScreen extends React.Component {
               <Input
                 onChangeText={first_name => this.setState({ first_name })}
                 label={i18n.t('first_name')}
-                placeholder={'Jonny'}
+                placeholder={'first name'}
                 value={first_name}
                 error={errorValidation}
               />
@@ -150,14 +150,19 @@ export default class SignUpScreen extends React.Component {
               <Input
                 onChangeText={last_name => this.setState({ last_name })}
                 label={i18n.t('last_name')}
-                placeholder={'Ive'}
+                placeholder={'last name'}
                 value={last_name}
                 error={errorValidation}
               />
 
-              <PhoneInput
+              <Input
+                onChangeText={phone => this.setState({ phone })}
+                returnKeyType={'go'}
                 label={i18n.t('phone_number')}
-                onChangePhoneNumber={phone => this.setState({ phone })}
+                placeholder={i18n.t('mobile_phone')}
+                value={phone}
+                textContentType={'telephoneNumber'}
+                error={errorValidation}
               />
 
               <InputUsername

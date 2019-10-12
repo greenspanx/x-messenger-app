@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Link, Button, Input } from '../../components/UI';
 import API from '../../api';
 import { userLogin } from '../../redux/actions/UserActions';
-import PhoneInput from '../../components/PhoneInput';
 import { isValidPhoneNumber } from '../../utils';
 
 @connect(
@@ -44,6 +43,8 @@ export default class SignInScreen extends React.Component {
 
     // Prepare
     phone = phone
+      .toString()
+      .trim()
       .replace(')', '')
       .replace('(', '')
       .replace('+', '')
@@ -79,7 +80,7 @@ export default class SignInScreen extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const { loading, password, errorValidation } = this.state;
+    const { loading, phone, password, errorValidation } = this.state;
 
     return (
       <View style={styles.container}>
@@ -90,9 +91,15 @@ export default class SignInScreen extends React.Component {
           <View style={styles.wrapper}>
             <Text style={styles.appName}>{i18n.t('app_name')}</Text>
             <View style={styles.inputsContainer}>
-              <PhoneInput
-                onChangePhoneNumber={phone => this.setState({ phone })}
-              />
+            <Input
+              onChangeText={phone => this.setState({ phone })}
+              returnKeyType={'go'}
+              placeholder={i18n.t('mobile_phone')}
+              value={phone}
+              textContentType={'telephoneNumber'}
+              onSubmitEditing={this.handlePressSignIn}
+              error={errorValidation}
+            />
               <Input
                 onChangeText={password => this.setState({ password })}
                 returnKeyType={'go'}
