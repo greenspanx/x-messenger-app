@@ -36,6 +36,16 @@ export function connectLoadingOverlay(WrappedComponent) {
       {context => <WrappedComponent {...context} {...props} />}
     </LoadingOverlayContext.Consumer>
   );
-
+  // Copies non-react specific statics from a child component to a parent
+  // component. Similar to Object.assign
+  // https://reactjs.org/docs/higher-order-components.html#static-methods-must-be-copied-over
+  // {/*hoistNonReactStatics(targetComponent, sourceComponent);*/}
   return hoistStatics(ConnectedLoadingOverlay, WrappedComponent);
 }
+
+/*
+*Static Methods Must Be Copied Over:
+*When you apply a HOC to a component, though, the original component is wrapped
+*with a container component. That means the new component does not have any
+*of the static methods of the original component.
+*/

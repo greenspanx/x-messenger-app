@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 export default function UploadProgress({ percent, size, onAbortPress }) {
   return (
     <View style={styles.container}>
+
       <CircularProgress
         size={size}
         width={2}
@@ -25,6 +26,7 @@ export default function UploadProgress({ percent, size, onAbortPress }) {
           />
         </TouchableWithoutFeedback>
       </View>
+      
     </View>
   );
 }

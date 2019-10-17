@@ -1,7 +1,7 @@
 import * as ImageManipulator from 'expo-image-manipulator';
-import { RNS3 } from 'react-native-aws3';
+import { RNS3 } from 'react-native-s3-upload';
 import extName from 'ext-name';
-import { getRandomID } from '../utils';
+import { getRandomID } from './index.js';
 import Config from '../config';
 
 
@@ -11,6 +11,7 @@ export function uploadFileAsync(folder, localPath) {
   console.log('fileType.mime: ', fileType.mime);
   console.log('localPath: ', localPath);
 
+
   if (!fileType) {
 	console.log('no fileType in uploadFileAsync');
     return;
@@ -18,19 +19,19 @@ export function uploadFileAsync(folder, localPath) {
 
   const file = {
     uri: localPath,
-    name: `${getRandomID(15)}.${fileType.ext}`,
+    name: `${getRandomID(12)}.${fileType.ext}`,
     type: fileType.mime
   };
   //keyPrefix: `${folder}/`,
   const options = {
 	keyPrefix: `${folder}/`,
-	bucket: 's3-sydney-x-messenger',
-    region: 'ap-southeast-2',
-    accessKey: 'AKIASNGFCDTPWKDBE3FS',
-    secretKey: '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',
+  ...Config.awsConfig,
 	successActionStatus: 201
   };
 
+  console.log('options: ', options);
+  // Returns an object that wraps an XMLHttpRequest instance and behaves
+  // like a promise.
   return RNS3.put(file, options);
 }
 

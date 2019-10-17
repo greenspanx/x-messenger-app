@@ -1,5 +1,14 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
+/*
+*react-native-size-matters
+*When developing with react-native, you need to manually adjust your app to look great
+*on variety of different screen sizes. That's a tedious job.
+*react-native-size-matters provides some simple tooling to make your scaling a
+* whole lot easier.
+*The idea is to develop once on a standard ~5" screen mobile device and then
+*simply apply the provided utils.
+*/
 import { ScaledSheet } from 'react-native-size-matters';
 import UserPicture from '../UserPicture';
 

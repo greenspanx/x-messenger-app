@@ -9,6 +9,7 @@ import {
   getPreviewImage,
   resizeImage
 } from '../utils/Uploader';
+
 import { getRandomID } from '../utils';
 
 import {
@@ -17,12 +18,15 @@ import {
   sendMessage
 } from '../redux/actions/ConversationActions';
 
+// set initialState for context Component MessageUploaderProvider
 const initialState = {
   activeUploads: {}
 };
 
+// create a context
 export const MessageUploaderContext = React.createContext(initialState);
 
+// pass in redux actions
 @connect(
   ({ user }) => ({ user }),
   {
@@ -31,6 +35,7 @@ export const MessageUploaderContext = React.createContext(initialState);
     sendMessage
   }
 )
+// create context provider component
 export class MessageUploaderProvider extends React.Component {
   state = initialState;
 
@@ -44,9 +49,9 @@ export class MessageUploaderProvider extends React.Component {
 
   uploadPhoto = async (recipient, rawPhoto) => {
     const { user } = this.props;
-    const randomMessageID = getRandomID(10);
+    const randomMessageID = getRandomID(12);
 
-    const resizedPhoto = await resizeImage(rawPhoto, 1000);
+    const resizedPhoto = await resizeImage(rawPhoto, 500);
     const preview = await getPreviewImage(resizedPhoto);
 
     const photo = {
@@ -67,6 +72,8 @@ export class MessageUploaderProvider extends React.Component {
       upload: true
     });
 
+    // uploadFileAsync returns an object that wraps an XMLHttpRequest instance
+    // and behaves like a promise, with the following additional methods: abort, progress
     const upload = uploadFileAsync('photos', resizedPhoto.uri);
 
     this.setState(prevState => ({
@@ -75,6 +82,7 @@ export class MessageUploaderProvider extends React.Component {
         [randomMessageID]: {
           percent: 0,
           abort: () => {
+            // abort - aborts the xhr instance
             upload.abort();
             this.props.removeMessage(recipient._id, randomMessageID);
             this.removeUploader(randomMessageID);
@@ -83,6 +91,7 @@ export class MessageUploaderProvider extends React.Component {
       }
     }));
 
+    // progress - accepts a callback which will be called with an event representing the progress of the upload.
     upload.progress(e => {
       this.setState(prevState => ({
         activeUploads: {
@@ -96,6 +105,7 @@ export class MessageUploaderProvider extends React.Component {
     });
 
     upload.then(response => {
+      console.log(response.body);
       if (response.status !== 201) {
         throw new Error('Failed to upload image to S3');
       }
@@ -131,14 +141,16 @@ export class MessageUploaderProvider extends React.Component {
   render() {
     return (
       <MessageUploaderContext.Provider value={this.state}>
+        {/*value={this.state} will pass down to context consumer as context*/}
         {this.props.children}
       </MessageUploaderContext.Provider>
     );
   }
 }
-
+// create context consumer
 export const MessageUploadProgress = ({ message_id }) => (
   <MessageUploaderContext.Consumer>
+    {/*destructure context to activeUploads*/}
     {({ activeUploads }) => {
       const currentUpload = activeUploads[message_id];
 

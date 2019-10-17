@@ -155,6 +155,7 @@ export default class ConversationScreen extends React.Component {
   };
 
   startUploadPhoto = photo => {
+    console.log('this.messageUploader: ', this.messageUploader);
     this.messageUploader.uploadPhoto(this.props.recipient, photo);
   };
 

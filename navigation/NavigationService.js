@@ -3,7 +3,6 @@ import { NavigationActions } from 'react-navigation';
 
 // Navigation utils
 
-
 let _navigator;
 export const setTopLevelNavigator = navigatorRef => {
   _navigator = navigatorRef;
@@ -48,9 +47,8 @@ export default {
   getCurrentRouteName
 };
 
-//
+
 // Own navigation actions
-//
 
 export const navigateToConversation = (recipient, lastMessage) => {
   navigate(

@@ -42,9 +42,11 @@ export default class SearchModalize extends React.PureComponent {
 
     if (value) {
       if (this.timeoutFastTyping) {
+        // Prevent the function set with the setTimeout() to execute.
         clearTimeout(this.timeoutFastTyping);
       }
-
+      // Wait for User to Stop Typing,
+      // setTimeout: getUsers after typing stopped 400 milliseconds
       this.timeoutFastTyping = setTimeout(() => {
         this.getUsers(value);
         this.timeoutFastTyping = false;
@@ -66,7 +68,7 @@ export default class SearchModalize extends React.PureComponent {
           />
           <TextInput
             style={styles.searchInput}
-            placeholder={'Search by username'}
+            placeholder={i18n.t('search_by_username')}
             placeholderTextColor={'#bfbec4'}
             onChangeText={this.handleChangeSearchText}
             value={searchInputValue}

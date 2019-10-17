@@ -23,6 +23,7 @@ export default {
   logout: 'Logout',
   dialogs: 'Dialogs',
   settings: 'Settings',
+  search_by_username: 'Search by username',
   search_not_found: 'No results found for your request.',
   search_start: 'Start typing username',
   connection: 'Connection',

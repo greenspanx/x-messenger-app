@@ -106,7 +106,7 @@ export default class UploadUserPicture extends React.Component {
 
       Alert.alert(
         i18n.t('error'),
-        'Failed to upload image to S3, Please check your AWS configuration in the file config.js'
+        'Failed to upload image to S3, Please check your AWS configuration in the folder config'
       );
     }
   };

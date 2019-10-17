@@ -1,4 +1,5 @@
-import { Notifications, Constants } from 'expo';
+import { Notifications } from 'expo';
+import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { Platform, AsyncStorage } from 'react-native';
 import API from './api';

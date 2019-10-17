@@ -23,7 +23,7 @@ export function isSameDay(currentDate, previousDate) {
 
   return currentDateMoment.isSame(previousDateMoment, 'day');
 }
-
+// generate random ID -- '7uics5u7id'
 export function getRandomID(l) {
   return [...Array(l)].map(_ => ((Math.random() * 36) | 0).toString(36)).join``;
 }

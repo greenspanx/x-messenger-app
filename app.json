@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true      
+    },
+    "android": {
+      "package": "com.simonxie.x_messenger"
+    },
+    "description": ""
   }
 }

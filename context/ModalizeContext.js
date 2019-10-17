@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import hoistStatics from 'hoist-non-react-statics';
-
+// import search modalize
 import Modals from '../modalize';
 
 export const ModalContext = React.createContext({
@@ -35,7 +35,7 @@ export class ModalizeProvider extends React.PureComponent {
 
   openModalize = (id, payload) => {
     if (!id) return;
-
+    // id will be 'search'
     this.setState({
       modalName: id,
       isOpen: true,
@@ -53,14 +53,18 @@ export class ModalizeProvider extends React.PureComponent {
     }, 200);
   };
 
+  // method renderModalize will be passed down to ModalContext.Consumer via context
   renderModalize() {
+    // modalName will be 'search'
     const { modalName, payload } = this.state;
+    // CurrentModal will be SearchModalize
     const CurrentModal = Modals[modalName];
 
     if (!CurrentModal) {
       return <View />;
     }
 
+    // this.modal will be passed down to consumer as context.ref.current.close();
     return (
       <CurrentModal
         payload={payload}
@@ -82,12 +86,13 @@ export class ModalizeProvider extends React.PureComponent {
   }
 }
 
+// create a decorator, WrappedComponent will be ContactsScreen
 export function connectModalize(WrappedComponent) {
   const Connected = (props, context) => (
     <ModalContext.Consumer>
       {context => <WrappedComponent {...context} {...props} />}
     </ModalContext.Consumer>
   );
-
+  // hoist static methods/props from WrappedComponent to ModalContext.Consumer
   return hoistStatics(Connected, WrappedComponent);
 }

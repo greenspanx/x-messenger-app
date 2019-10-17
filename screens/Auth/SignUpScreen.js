@@ -12,7 +12,7 @@ import { isValidPhoneNumber } from '../../utils';
 
 @connect(
   null,   // mapStateToProps
-  { userLogin }  // mapActionToProps 
+  { userLogin }  // mapActionToProps
 )
 export default class SignUpScreen extends React.Component {
   static navigationOptions = {
@@ -141,6 +141,7 @@ export default class SignUpScreen extends React.Component {
             <View style={styles.inputsContainer}>
               <Input
                 onChangeText={first_name => this.setState({ first_name })}
+                returnKeyType={'next'}
                 label={i18n.t('first_name')}
                 placeholder={'first name'}
                 value={first_name}
@@ -149,6 +150,7 @@ export default class SignUpScreen extends React.Component {
 
               <Input
                 onChangeText={last_name => this.setState({ last_name })}
+                returnKeyType={'next'}
                 label={i18n.t('last_name')}
                 placeholder={'last name'}
                 value={last_name}
@@ -157,7 +159,7 @@ export default class SignUpScreen extends React.Component {
 
               <Input
                 onChangeText={phone => this.setState({ phone })}
-                returnKeyType={'go'}
+                returnKeyType={'next'}
                 label={i18n.t('phone_number')}
                 placeholder={i18n.t('mobile_phone')}
                 value={phone}
@@ -175,7 +177,7 @@ export default class SignUpScreen extends React.Component {
 
               <Input
                 onChangeText={password => this.setState({ password })}
-                returnKeyType={'go'}
+                returnKeyType={'next'}
                 label={i18n.t('password')}
                 placeholder={'••••••••'}
                 secureTextEntry
@@ -187,6 +189,7 @@ export default class SignUpScreen extends React.Component {
                 onChangeText={password_again =>
                   this.setState({ password_again })
                 }
+                returnKeyType={'go'}
                 label={i18n.t('password_again')}
                 placeholder={'••••••••'}
                 secureTextEntry

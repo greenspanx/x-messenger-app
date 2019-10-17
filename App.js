@@ -43,6 +43,8 @@ export default class App extends React.Component {
                 displayRef={NavigationService.setTopLevelLoadingOverlay}
               >
                 <ModalizeProvider>
+                  {/*pass navigatorRef to NavigationService*/}
+                  {/*ref={(navigatorRef) => this._setNavigatorRef(navigatorRef)}*/}
                   <AppNavigator ref={NavigationService.setTopLevelNavigator} />
                 </ModalizeProvider>
               </LoadingOverlayProvider>
